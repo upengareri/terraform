@@ -15,3 +15,24 @@
 3. vpc_zone_identifier
     - it's better to keep your instances in different subnets as they reside in different AZs to be safe from any data outage in one subnet/AZ
     - to put your instances in different subnets we use `data` sources to get info
+
+## Load Balancer
+
+> Contains 3 parts: Listener, Listener Rule and Target Group
+
+1. Create ALB(Application), NLB(Network) or CLB(Classic) 
+`aws_lb`
+    - here, we define the type of lb we'll use
+2. Create a listener for the LB in step 1
+`aws_lb_listener`
+    - here, we define which port and protocol we'll use to listen
+3. Security group of the LB in step 1.
+`aws_security_group`
+    - here, we define the ip and port for both inbound and outbound traffic
+4. Target group
+`aws_lb_target_group`
+    - we define the `health_check` rule
+5. Add target group to asg resource created in step 2 of asg above
+6. Listener Rule
+`aws_lb_listener_rule`
+    - ties all the pieces together i.e connects listener to listener_target_group
