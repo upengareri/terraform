@@ -36,3 +36,24 @@
 6. Listener Rule
 `aws_lb_listener_rule`
     - ties all the pieces together i.e connects listener to listener_target_group
+
+## Terraform state
+
+- Collaboration and isolation
+- To solve collaboration problem we can use backend and locking (using S3 and Dynamodb)
+
+### Saving Terraform state in backend server (for collaboration)
+
+1. Create s3 bucket
+`aws_s3_bucket`
+    - has versioning, encryption
+2. Create dynamodb table
+`aws_dynamodb_table`
+    - for locking
+3. Create terraform backend
+`terraform {    backend "s3" {  config  }   }`
+    - so that terraform can automatically pull and push for `tfstate` after each `terraform plan` respectively
+
+> We can use Terragrunt for backend configuration settings to keep it DRY (Don't Repeat Yourself)
+
+### Isolation of tfstate
