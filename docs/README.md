@@ -57,3 +57,20 @@
 > We can use Terragrunt for backend configuration settings to keep it DRY (Don't Repeat Yourself)
 
 ### Isolation of tfstate
+
+- so that our different environments such as staging(for preproduction testing), production remain isolated from each other (like docker containers)
+
+1. via workspace 
+2. via file layout (RECOMMENDED)
+
+#### Isolation via File Layout
+
+- Use of separate folders for each environment
+  - It can further be separated by using components (for different services/resource) within each environment
+
+Although modularity saves us from mishaps like accidently destroying the entire infrastructure, it has a pitfall that now as the code is not in a single file, we need to run terraform apply for each configuration/module separately.
+
+> This is resolved by terragrunt by using `apply-all`
+
+It also has the disadvantage that referencing of a resource within the same file was easy. For e.g `aws_db_instance.foo.address` but with modules it has to be done using `terraform_remote_state`.
+
