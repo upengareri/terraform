@@ -63,3 +63,13 @@ output "for_each_all_users_arn" {
 # meaning when we access the resource that has count in it then we treat it as list
 # e.g see the above code that uses IAM resource with count
 # similarly, for-each makes the resource as MAP
+
+
+# ---------------
+1. resource
+2. data
+3. module
+4. provisioner
+5. connection
+6. provisioner with null_resource
+    `resource "null_resource"`
